@@ -4,14 +4,6 @@ import checkWin from './utils';
 
 function App() {
 
-  // useEffect(() => {
-  //   let initialOption = prompt("Qual jogador irá começar? [Digite 1 ou 2]");
-
-  //   while(initialOption != "1" || initialOption != "2") {
-  //     initialOption = prompt("Qual jogador irá começar? [Digite 1 ou 2]");
-  //   }
-  // });
-
   const [s1, setS1] = useState(null);
   const [s2, setS2] = useState(null);
   const [s3, setS3] = useState(null);
