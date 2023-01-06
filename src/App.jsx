@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './index.css'
+import checkWin from './utils';
 
 function App() {
 
@@ -27,13 +28,39 @@ function App() {
   const[squaresPlayer1, setSquaresPlayer1] = useState([]);
   const[squaresPlayer2, setSquaresPlayer2] = useState([]);
 
-  useEffect(() => {
-    console.log(squaresPlayer1);
-  }, [squaresPlayer1]);
 
   useEffect(() => {
-    console.log(squaresPlayer2);
-  }, [squaresPlayer2]);
+    if(squaresPlayer1.length >= 3 || squaresPlayer2.length >= 3) {
+      if(checkWin(squaresPlayer1)) {
+        alert("Jogador 1 ganhou!");
+        clearAll();
+      } else if(checkWin(squaresPlayer2)) {
+        alert("Jogador 2 ganhou!");
+        clearAll();
+      } else if(squaresPlayer1.length === 5 && squaresPlayer2.length === 4) {
+        alert("Deu velha!");
+        clearAll();
+      }
+    } 
+  }, [squaresPlayer1, squaresPlayer2]);
+
+  function clearAll() {
+    setTimeout(() => {
+      setS1(null);
+      setS2(null);
+      setS3(null);
+      setS4(null);
+      setS5(null);
+      setS6(null);
+      setS7(null);
+      setS8(null);
+      setS9(null);
+      setPlayer1(true);
+      setPlayer2(false);
+      setSquaresPlayer1([]);
+      setSquaresPlayer2([]);
+    }, 2000);
+  }
 
   function invPlayer() {
     setPlayer1(!player1);
@@ -144,6 +171,7 @@ function App() {
         break;
     
       default:
+        alert("Ops! Algo não deu certo...");
         break;
     }
   }
