@@ -5,18 +5,17 @@
     font-family: sans-serif;
 }
 
-body, html {
-    height: 100vh;
-    width: 100%;
-}
-
 .App {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100vh;
+    align-items: center;
+    justify-content: center;
+    padding: 150px 500px;
     gap: 10px;
     background-color: #000;
+    pointer-events: auto;
 }
 
 .row {
@@ -32,7 +31,66 @@ body, html {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 150px;
     background-color: #FFF;
     cursor: pointer;
+    font-size: 7.5rem;
+}
+
+.buttons {
+    display: flex;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.option-button {
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: bold;
+    background-color: #FFF;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.option-button:hover {
+    color: #FFF;
+    background-color: rgb(87, 87, 87);
+}
+
+@media (max-width: 1520px) {
+    .App {
+        padding: 100px 200px;
+    }
+
+    .container {
+        font-size: 7rem;
+    }
+}
+
+@media (max-width: 1026px) {
+    .App {
+        padding: 100px 100px;
+    }
+}
+
+@media (max-width: 760px) {
+    .App {
+        padding: 50px 50px;
+    }
+}
+
+@media (max-width: 660px) {
+    .App {
+        padding: 200px 50px;
+    }
+}
+
+@media (max-width: 512px) {
+    .App {
+        padding: 270px 50px;
+    }
+
+    .container {
+        font-size: 3rem;
+    }
 }

@@ -10,7 +10,7 @@ const winConditions = [
  ["s3", "s5", "s7"]
 ];
 
-function checkWin(array) {
+export function checkWin(array) {
     for(let indexWins = 0; indexWins < winConditions.length; indexWins++) {
         let count = 0;
         for(let index = 0; index < winConditions[indexWins].length; index++) {
@@ -23,4 +23,12 @@ function checkWin(array) {
     return false;
 }
 
-export default checkWin;
+const moves = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9"];
+
+export function botMove(arrayP1, arrayP2) {
+    let randomIndex = Math.floor(Math.random() * (Math.floor(moves.length) - Math.ceil(0)) + Math.ceil(0));
+    while((arrayP1.includes(moves[randomIndex])) || (arrayP2.includes(moves[randomIndex]))) {
+        randomIndex = Math.floor(Math.random() * (Math.floor(moves.length) - Math.ceil(0)) + Math.ceil(0));
+    }
+    return moves[randomIndex];
+}

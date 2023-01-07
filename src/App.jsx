@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './index.css'
-import checkWin from './utils';
+import { checkWin, botMove } from './utils.js'
 
 function App() {
 
@@ -20,21 +20,44 @@ function App() {
   const[squaresPlayer1, setSquaresPlayer1] = useState([]);
   const[squaresPlayer2, setSquaresPlayer2] = useState([]);
 
+  const[bot, setBot] = useState(true);
 
   useEffect(() => {
     if(squaresPlayer1.length >= 3 || squaresPlayer2.length >= 3) {
       if(checkWin(squaresPlayer1)) {
         alert("Jogador 1 ganhou!");
+        document.getElementById("game").style.pointerEvents = "none";
         clearAll();
       } else if(checkWin(squaresPlayer2)) {
         alert("Jogador 2 ganhou!");
+        document.getElementById("game").style.pointerEvents = "none";
         clearAll();
-      } else if(squaresPlayer1.length === 5 && squaresPlayer2.length === 4) {
+      } else if((squaresPlayer1.length === 5 && squaresPlayer2.length === 4) || (squaresPlayer1.length === 4 && squaresPlayer2.length === 5)) {
         alert("Deu velha!");
+        document.getElementById("game").style.pointerEvents = "none";
         clearAll();
       }
+    }
+    if(bot && player2 && squaresPlayer1.length != 5 && !checkWin(squaresPlayer1)) {
+      document.getElementById("game").style.pointerEvents = "none";
+      setTimeout(() => {
+        handleRegister({target: {id: botMove(squaresPlayer1, squaresPlayer2)}});
+        invPlayer();
+        document.getElementById("game").style.pointerEvents = "auto";
+      }, 1000);
     } 
   }, [squaresPlayer1, squaresPlayer2]);
+
+  function handleBot(event) {
+    const option = event.target.id;
+    if(option === "bot") {
+      setBot(true);
+      alert("Partida com bot irá começar! Por favor inicie o movimento.");
+    } else {
+      setBot(false);
+      alert("Partida localmente selecionada!");
+    }
+  }
 
   function clearAll() {
     setTimeout(() => {
@@ -51,6 +74,7 @@ function App() {
       setPlayer2(false);
       setSquaresPlayer1([]);
       setSquaresPlayer2([]);
+      document.getElementById("game").style.pointerEvents = "auto";
     }, 2000);
   }
 
@@ -61,6 +85,7 @@ function App() {
 
   function handleRegister(event) {
     let square = event.target.id;
+    
     switch (square) {
       case "s1":
         if(player1 && !s1) {
@@ -166,10 +191,11 @@ function App() {
         alert("Ops! Algo não deu certo...");
         break;
     }
+    
   }
 
   return (
-    <div className="App">
+    <div id="game" className="App">
       <div className="row">
         <span onClick={handleRegister} id ="s1" className="container">{s1}</span>
         <span onClick={handleRegister} id ="s2" className="container">{s2}</span>
@@ -184,6 +210,18 @@ function App() {
         <span onClick={handleRegister} id ="s7" className="container">{s7}</span>
         <span onClick={handleRegister} id ="s8" className="container">{s8}</span>
         <span onClick={handleRegister} id ="s9" className="container">{s9}</span>
+      </div>
+      <div className="buttons">
+        <button 
+        onClick={handleBot} 
+        id="bot" 
+        className="option-button"
+        disabled={squaresPlayer1.length != 0}>Jogar contra Bot</button>
+        <button 
+        onClick={handleBot} 
+        id="local" 
+        className="option-button"
+        disabled={squaresPlayer1.length != 0}>Jogar localmente</button>
       </div>
     </div>
   )
