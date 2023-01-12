@@ -48,7 +48,7 @@ function App() {
     } 
   }, [squaresPlayer1, squaresPlayer2]);
 
-  function handleBot(event) {
+  function handleSelect(event) {
     const option = event.target.id;
     if(option === "bot") {
       setBot(true);
@@ -213,13 +213,13 @@ function App() {
       </div>
       <div className="buttons">
         <button 
-        onClick={handleBot} 
+        onClick={handleSelect} 
         id="bot" 
         className="option-button"
         disabled={squaresPlayer1.length != 0}>Jogar contra Bot</button>
         <button 
-        onClick={handleBot} 
-        id="local" 
+        onClick={handleSelect} 
+        id="local"
         className="option-button"
         disabled={squaresPlayer1.length != 0}>Jogar localmente</button>
       </div>
